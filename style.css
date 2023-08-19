@@ -1,3 +1,63 @@
 .blue {
-    color: blue;
-  }
+  color: blue;
+}
+
+#login-page-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#login-page {
+  padding: 20px 60px;
+  border: 5px solid black;
+}
+
+#login-form {
+  justify-content: stretch;
+}
+
+.login-input {
+  width: 100%;
+  display: inline-block;
+}
+
+#login-button {
+  width: 100%;
+  text-transform: none;
+}
+
+#create-button {
+  font-size: 2rem;
+  height: 48px;
+  margin: 0;
+  min-width: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 500px;
+  text-align: left;
+  margin-left: 24px;
+}
+
+table td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+table td, table th {
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid #DFE2E4;
+  border-spacing: 0;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+button {
+  margin: 0 !important;
+}
