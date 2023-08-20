@@ -8,6 +8,6 @@ By [Jim](https://github.com/Wangj3743), [Li Feng](https://github.com/lifeng-yin)
 2. Download the repository on your computer as a .zip file
 3. Extract the contents of the .zip file
 4. Open the folder
-5. In a terminal, run ```pip install taipy``` to install [Taipy](https://www.taipy.io) and it's packages
-6. Run main.py with ```python main.py``` in a terminal within the folder
+5. In a terminal, run ```pip install taipy``` within the project directory to install [Taipy](https://www.taipy.io) and it's packages 
+6. Run the program with ```python main.py``` 
 7. Open the server in a web browser
