@@ -3,6 +3,8 @@ import pandas as pd
 from fuzzy_match import algorithims
 import time
 
+##### VARIABLES #####
+
 root_md=f'<|navbar|>'
 output="out"
 tempFront=""
@@ -28,40 +30,46 @@ currentQuestionShown=True
 finished=False
 score=0
 
+# Variable to keep track of all of the decks
+all_decks = []
+
 example_deck = {
-    'id': 'dsjfgkhskdf',
+    'id': 'pcgr-uu0e-ckrx',
     'name': 'dfsjgkl',
-    'created_by': 'ooooo'
+    'created_by': 'studier-334'
 }
+
 
 ###### DECK ######
 
 def deck_adapter(deck):
   return f"""
-    <tr>
-        <td>
-            <taipy:button on_action='handle_deck_play' id="{deck['id']}">▶</taipy:button>
-        </td>
-        <td>{deck['name']}</td>
-        <td>{deck['created_by']}</td>
-    </tr>"""
+    """
 
-decks_list = [example_deck, example_deck]
 
-decks=Html(f"""
+decks=Html("""
 <taipy:button on_action="handle_deck_create" id="create-button">+</taipy:button>
-<taipy:input value='{text}'></taipy:input>
-<taipy:button on_action="handle_search">
-    🔍
-</taipy:button>
 <table>
 <thead>
 <th>&nbsp;</th>
 <th>Name</th>
 <th>Created by</th>
+<th></th>
 </thead>
 <tbody>
-{"".join(map(deck_adapter, decks_list))}
+
+<taipy:part render={len(all_decks) >= 1} class_name="create-input-part">
+    <tr>
+        <td>
+            <taipy:button on_action='handle_deck_play' class="button_deck_play" id="{len(all_decks) >= 1 and all_decks[0]['id']}">▶</taipy:button>
+        </td>
+        <td>{len(all_decks) >= 1 and all_decks[0]['name']}</td>
+        <td>{len(all_decks) >= 1 and all_decks[0]['created_by']}</td>
+        <td>
+            <taipy:button on_action='handle_deck_delete' class="button_deck_delete" id="{len(all_decks) >= 1 and all_decks['id']}"></taipy:button>
+        </td>
+     </tr>
+</taipy:part>
 </tbody>
 </table>
 """)
@@ -73,6 +81,9 @@ def handle_deck_play(state, id):
     state.current_card_id=id
     navigate(state=state, to="play")
 
+def handle_deck_delete(state, id):
+    pass
+
 def handle_search(state):
     pass
     #state.text = "Button Pressed"
@@ -81,30 +92,92 @@ def handle_search(state):
 
 ##### CREATE #####
 
-create = """
-## Create a card:
-front side: <|{tempFront}|input|multiline|>
-back side: <|{tempBack}|input|multiline|>
-<|create|button|on_action=create_card|>
+new_deck_name = " "
+new_deck_card_0_front = ' '
+new_deck_card_0_back = ' '
+new_deck_card_1_front = ' '
+new_deck_card_1_back = ' '
+new_deck_card_2_front = ' '
+new_deck_card_2_back = ' '
+new_deck_card_3_front = ' '
+new_deck_card_3_back = ' '
+new_deck_card_4_front = ' '
+new_deck_card_4_back = ' '
+new_deck_card_5_front = ' '
+new_deck_card_5_back = ' '
+new_deck_card_6_front = ' '
+new_deck_card_6_back = ' '
+new_deck_card_7_front = ' '
+new_deck_card_7_back = ' '
+new_deck_card_length = 1
+new_deck_cards = [{ 'front': '', 'back': ''}]
 
-output: <|{output}|>
+
+create = """
+### New deck name: <|{new_deck_name}|input|>
+
+<|{new_deck_card_0_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_0_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+<|part|render={new_deck_card_length > 1}|class_name=create-input-part|
+<|{new_deck_card_1_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_1_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+<|part|render={new_deck_card_length > 2}|class_name=create-input-part|
+<|{new_deck_card_2_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_2_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+<|part|render={new_deck_card_length > 3}|class_name=create-input-part|
+<|{new_deck_card_3_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_3_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+<|part|render={new_deck_card_length > 4}|class_name=create-input-part|
+<|{new_deck_card_4_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_4_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+<|part|render={new_deck_card_length > 5}|class_name=create-input-part|
+<|{new_deck_card_5_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_5_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+<|part|render={new_deck_card_length > 6}|class_name=create-input-part|
+<|{new_deck_card_6_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_6_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+<|part|render={new_deck_card_length > 7}|class_name=create-input-part|
+<|{new_deck_card_7_front}|input|on_change=card_change|label=Front|class_name=create-input|>
+<|{new_deck_card_7_back}|input|on_change=card_change|label=Back|class_name=create-input|>
+|>
+
+
+<|+ New Card|button|on_action={create_card}|>
+
+<|Create deck|button|on_action=create_new_deck|>
 """
 
 def create_card(state):
-    # notify(state, 'info', f'The text is: {state.text}')
-    state.front.append(state.tempFront)
-    state.back.append(state.tempBack)
-    state.output = "hello" #output var
-    state.tempFront=""
-    state.tempBack=""
-    print(state.front, state.back)
+    print('new_card')
+    state.new_deck_card_length += 1
+    state.new_deck_cards.append({ 'front': '', 'back': ''})
 
+def card_change(state, var_name, var_value):
+    print(var_name)
 
+    front_back = 'front' if var_name.endswith('front') else 'back'
+    state.new_deck_cards[int(var_name[14:((-1)*len(front_back)) - 1])][front_back] = var_value
+
+def create_new_deck(state):
+    
+    d_questions = [x["front"] for x in state.new_deck_cards]
+    d_answers = [x["back"] for x in state.new_deck_cards]
+
+    state.all_decks.append({ 'id': d_questions, 'name': d_answers, 'created_by': 'studier334' })
+    print(state.all_decks)
+
+    navigate(state=state, to='decks')
 
 ##### LOGIN #####
 
 login = """
-<|layout|columns=1|id=login-page-wrapper|
+<|part|class_name=center-page-wrapper|
 <|layout|columns=1|id=login-page|
 # Login to flip.py {: .blue}
 <|layout|columns=1|id=login-form|
@@ -125,8 +198,8 @@ def handle_login(state):
 ##### PLAY #####
 
 play = """  
-<|part|class_name="playUI"|
-<|part|render={not finished}|
+<|part|class_name=center-page-wrapper|
+<|part|render={not finished}|class_name=play_card|
 Question: <|{questionNum}|> / <|{totalQuestions}|>
 
 <|{questions[i]}|>
@@ -183,6 +256,7 @@ def on_init(state):
 
 
 def on_change(state, var_name, var_value):
+    print('something changed')
     if var_name == "tempFront":
         state.tempFront = var_value
     elif var_name == "tempBack":
@@ -191,6 +265,8 @@ def on_change(state, var_name, var_value):
         state.username = var_value
     elif var_name == "password":
         state.password = var_value
+    elif var_name == "new_deck_name":
+        state.new_deck_name = var_value
     
 
 ##### RUNNING THE GUI #####
@@ -214,4 +290,4 @@ pages = {
 }
     
 
-Gui(pages=pages, css_file="style.css").run(port=5777, dark_mode=False, stylekit=stylekit, use_reloader=True)
+Gui(pages=pages, css_file="style.css").run(port=5174, dark_mode=False, stylekit=stylekit, use_reloader=True)

@@ -2,9 +2,9 @@
   color: blue;
 }
 
-#login-page-wrapper {
-  width: 100vw;
-  height: 100vh;
+.center-page-wrapper {
+  width: 99vw;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,8 @@
 
 #login-page {
   padding: 20px 60px;
-  border: 5px solid black;
+  box-shadow: 1px 2px 8px 2px #E0E2E5;
+  border-radius: 20px;
 }
 
 #login-form {
@@ -60,4 +61,20 @@ table td, table th {
 
 button {
   margin: 0 !important;
+}
+
+.play_card {
+  padding: 48px;
+  box-shadow: 1px 2px 8px 2px #E0E2E5;
+  border-radius: 15px;
+}
+
+.create-input-part {
+  width: 700px !important;
+}
+
+input.create-input {
+  width: 700px !important;
+  min-width: 700px !important;
+  display: inline-block;
 }
